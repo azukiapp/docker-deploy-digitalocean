@@ -108,7 +108,7 @@ else:
 wait_droplet_get_active(droplet)
 
 droplet.load()
-ip_addr_file= env('IP_ADDR_FILE', 'ip_addr')
+ip_addr_file= env('REMOTE_HOST_ADDR_FILE', 'ip_addr')
 
 with open(ip_addr_file, 'w') as f:
   f.write(str(droplet.ip_address))

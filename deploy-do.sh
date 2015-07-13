@@ -13,18 +13,18 @@ cd ${ROOT_PATH}
 
 set -e
 
-export LOCAL_SSH_KEYS_PATH=${ROOT_SSH_PATH}
-export PUBLIC_KEY="$( cat ${ROOT_SSH_PATH}/*.pub )"
-export IP_ADDR_FILE="ip_addr"
+export LOCAL_DOT_SSH_PATH=${LOCAL_ROOT_DOT_SSH_PATH}
+export PUBLIC_KEY="$( cat ${LOCAL_ROOT_DOT_SSH_PATH}/*.pub )"
+export REMOTE_HOST_ADDR_FILE="ip_addr"
 
 python setup.py
 
-export ANSIBLE_SSH_HOST=`cat ${IP_ADDR_FILE}`
-rm -f ${IP_ADDR_FILE}
+export REMOTE_HOST=`cat ${REMOTE_HOST_ADDR_FILE}`
+rm -f ${REMOTE_HOST_ADDR_FILE}
 
 RETRY=0; MAX_RETRY=10
 until [ ${RETRY} -ge ${MAX_RETRY} ]; do
-  quiet nc -w 10 ${ANSIBLE_SSH_HOST} 22 && break
+  quiet nc -w 10 ${REMOTE_HOST} 22 && break
   let RETRY=${RETRY}+1
   echo "Server not accepting SSH connections. Retrying... (${RETRY}/${MAX_RETRY})"
   sleep 2
