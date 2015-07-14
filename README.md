@@ -82,7 +82,7 @@ To run the image:
 ```sh
 $ docker run --rm --name deploy-digitalocean-run \
   -v `LOCAL_PROJECT_PATH`:/azk/deploy/src \
-  -v `LOCAL_DOT_SSH_PATH`:/azk/deploy/.ssh
+  -v `LOCAL_DOT_SSH_PATH`:/azk/deploy/.ssh \
   -e "API_TOKEN=`DO_API_TOKEN`" \
   azukiapp/deploy-digitalocean
 ```
