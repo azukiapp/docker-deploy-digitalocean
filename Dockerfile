@@ -2,8 +2,7 @@ FROM azukiapp/deploy
 MAINTAINER Azuki <support@azukiapp.com>
 
 WORKDIR /azk/deploy
-COPY deploy-do.sh ./deploy-do.sh
-COPY setup.py ./setup.py
+COPY deploy-do.sh setup.py log.py ./
 
 RUN apt-get -y update \
   && apt-get install -y python-dev libffi-dev libssl-dev \

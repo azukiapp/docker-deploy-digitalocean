@@ -1,7 +1,5 @@
 #! /bin/sh
 
-set -x
-
 abs_dir() {
   cd "${1%/*}"; link=`readlink ${1##*/}`;
   if [ -z "$link" ]; then pwd; else abs_dir $link; fi
@@ -17,7 +15,7 @@ export LOCAL_DOT_SSH_PATH=${LOCAL_ROOT_DOT_SSH_PATH}
 export PUBLIC_KEY="$( cat ${LOCAL_ROOT_DOT_SSH_PATH}/*.pub )"
 export REMOTE_HOST_ADDR_FILE="ip_addr"
 
-python setup.py
+python -u setup.py
 
 export REMOTE_HOST=`cat ${REMOTE_HOST_ADDR_FILE}`
 rm -f ${REMOTE_HOST_ADDR_FILE}
@@ -25,8 +23,8 @@ rm -f ${REMOTE_HOST_ADDR_FILE}
 RETRY=0; MAX_RETRY=10
 until [ ${RETRY} -ge ${MAX_RETRY} ]; do
   quiet nc -w 10 ${REMOTE_HOST} 22 && break
-  let RETRY=${RETRY}+1
-  echo "Server not accepting SSH connections. Retrying... (${RETRY}/${MAX_RETRY})"
+  RETRY=`expr ${RETRY} + 1`
+  echo "Server not accepting SSH connections yet. Retrying... (${RETRY}/${MAX_RETRY})"
   sleep 2
 done
 

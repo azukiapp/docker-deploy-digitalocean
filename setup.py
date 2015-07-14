@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+
 import os
 import time
+import sys
 import digitalocean
+import log
 
 def env(key, default=None):
   try:
@@ -8,23 +12,21 @@ def env(key, default=None):
   except:
     return default
 
-# Usar metodo wait da action
 def wait(action, desciption=None, step=2000, timeout=300000):
   if action is None:
-    raise RuntimeError("Cannot wait for an empty action.")
+    raise RuntimeError(log.err('Cannot wait for an empty action.'))
   if desciption is None:
     desciption = action.type
   start_time = time.time()
   while (time.time() - start_time)*1000 < timeout:
     action.load()
-    print action.type + action.status
     if action.status == 'completed':
       return
     elif action.status == 'errored':
-      raise RuntimeError('[FAIL] ' + str(desciption))
+      raise RuntimeError(log.err(str(desciption)))
     time.sleep(step/1000)
   if (time.time() - start_time)*1000 >= timeout:
-    raise RuntimeError('[TIMEOUT] ' + str(desciption) + ' Timeout (' + str(timeout) + 'ms)')
+    raise RuntimeError(log.err(str(desciption) + ' Timeout (' + str(timeout) + 'ms)', 'timeout'))
 
 def last_action(droplet):
   if droplet is None:
@@ -37,7 +39,7 @@ def last_action(droplet):
 
 def wait_droplet_get_active(droplet, step=2000, timeout=300000):
   if droplet is None:
-    raise RuntimeError("Cannot wait for an empty droplet.")
+    raise RuntimeError(log.err('Cannot wait for an empty droplet.'))
   start_time = time.time()
   while (time.time() - start_time)*1000 < timeout:
     droplet.load()
@@ -47,18 +49,18 @@ def wait_droplet_get_active(droplet, step=2000, timeout=300000):
       time.sleep(step/1000)
       continue
     else:
-      raise RuntimeError('[FAIL] Failed to put droplet ' + str(droplet.name) + ' up. Status: ' + str(droplet.status))
+      raise RuntimeError(log.err('Failed to put droplet ' + str(droplet.name) + ' up. Status: ' + str(droplet.status)))
   if (time.time() - start_time)*1000 >= timeout:
-    raise RuntimeError('[TIMEOUT] Failed to put droplet ' + str(droplet.name) + ' up. Timeout (' + str(timeout) + 'ms).')
+    raise RuntimeError(log.err('Failed to put droplet ' + str(droplet.name) + ' up. Timeout (' + str(timeout) + 'ms).', 'timeout'))
 
 token = env('API_TOKEN')
 if token is None:
-  raise EnvironmentError('Environment variable API_TOKEN is empty.')
+  raise EnvironmentError(log.err('Environment variable API_TOKEN is empty.'))
 
 key_name = env('KEY_NAME', 'azk-deploy')
 public_key = env('PUBLIC_KEY')
 if public_key is None:
-  raise EnvironmentError('Environment variable PUBLIC_KEY is empty.')
+  raise EnvironmentError(log.err('Environment variable PUBLIC_KEY is empty.'))
 
 ssh_key = digitalocean.SSHKey(token=token).load_by_pub_key(public_key)
 if ssh_key is None:
@@ -72,8 +74,13 @@ droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
 
+log.step('Logging into Digital Ocean')
 manager  = digitalocean.Manager(token=token)
+log.step_done()
+
+log.step('Getting existing droplets')
 droplets = manager.get_all_droplets()
+log.step_done()
 
 droplet = None
 for a_droplet in droplets:
@@ -86,10 +93,19 @@ if not droplet is None and (
   droplet.image['slug']  != droplet_image  or
   droplet.size['slug']   != droplet_size
   ):
-  droplet.destroy()
-  wait(last_action(droplet), 'Destroying existing droplet.')
+  log.step(log.warn('Droplet config has changed! It will be destroyed and a new one will be created. Are you sure? (y/N) '))
+  ans = sys.stdin.read(1)
+  if str(ans).lower() == 'y':
+    log.step('Destroying existing droplet')
+    droplet.destroy()
+    wait(last_action(droplet), 'Destroying existing droplet.')
+    droplet = None
+    log.step_done()
+  else:
+    log.warn('The existing droplet has been preserved.')
 
 if droplet is None:
+  log.step('Creating new droplet ' + droplet_name + ' (please be patient)')
   droplet = digitalocean.Droplet(token=token,
     name=droplet_name,
     region=droplet_region,
@@ -98,17 +114,26 @@ if droplet is None:
     ssh_keys=[ssh_key.id])
   droplet.create()
   wait(last_action(droplet), 'Creating droplet.')
+  log.step_done()
 else:
+  log.step('Existing droplet ' + droplet.name + ' will be used.')
+  log.step_done()
   try:
     droplet.power_on()
+    log.step('Powering on droplet')
     wait(last_action(droplet), 'Powering on droplet.')
+    log.step_done()
   except digitalocean.baseapi.DataReadError:
     pass
 
+log.step('Waiting droplet to get active (please be patient)')
 wait_droplet_get_active(droplet)
+log.step_done()
 
 droplet.load()
 ip_addr_file= env('REMOTE_HOST_ADDR_FILE', 'ip_addr')
 
 with open(ip_addr_file, 'w') as f:
   f.write(str(droplet.ip_address))
+
+print('Droplet has been successfully setup')
