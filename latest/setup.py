@@ -74,7 +74,7 @@ droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
 
-log.step('Logging into Digital Ocean')
+log.step('Logging into DigitalOcean')
 manager  = digitalocean.Manager(token=token)
 log.step_done()
 
