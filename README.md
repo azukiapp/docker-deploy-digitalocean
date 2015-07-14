@@ -1,4 +1,4 @@
-[azukiapp/deploy-do](http://images.azk.io/#/deploy-do)
+[azukiapp/deploy-digitalocean](http://images.azk.io/#/deploy-digitalocean)
 ==================
 
 Base docker image to deploy an app into DigitalOcean using [`azk`](http://azk.io)
@@ -7,7 +7,7 @@ Versions (tags)
 ---
 
 <versions>
-- [`latest`](https://github.com/azukiapp/docker-deploy-do/blob/master/latest/Dockerfile)
+- [`latest`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/latest/Dockerfile)
 </versions>
 
 Image content:
@@ -51,7 +51,7 @@ systems({
   // ...
 
   deploy: {
-    image: {"docker": "azukiapp/deploy-do"},
+    image: {"docker": "azukiapp/deploy-digitalocean"},
     mounts: {
       "/azk/deploy/src":  path("."),
       "/azk/deploy/.ssh": path("`LOCAL_DOT_SSH_PATH`")
@@ -71,22 +71,22 @@ $ azk shell deploy
 
 #### Usage with `docker`
 
-To create the image `azukiapp/deploy-do`, execute the following command on the deploy-do image folder:
+To create the image `azukiapp/deploy-digitalocean`, execute the following command on the deploy-digitalocean image folder:
 
 ```sh
-$ docker build -t azukiapp/deploy-do .
+$ docker build -t azukiapp/deploy-digitalocean .
 ```
 
 To run the image:
 
 ```sh
-$ docker run --rm --name deploy-do-run \
+$ docker run --rm --name deploy-digitalocean-run \
   -v `LOCAL_PROJECT_PATH`:/azk/deploy/src \
   -v `LOCAL_DOT_SSH_PATH`:/azk/deploy/.ssh
   -e "API_TOKEN=`DO_API_TOKEN`" \
-  azukiapp/deploy-do
+  azukiapp/deploy-digitalocean
 ```
 
 ## License
 
-Azuki Dockerfiles distributed under the [Apache License](https://github.com/azukiapp/docker-deploy-do/blob/master/LICENSE).
+Azuki Dockerfiles distributed under the [Apache License](https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/LICENSE).
