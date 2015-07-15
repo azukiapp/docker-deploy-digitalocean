@@ -64,6 +64,28 @@ systems({
 });
 ```
 
+- Add the `AZK_HOST_IP` var to your main system http domains (so you can access it by http://`DROPLET_PUBLIC_IP`)
+```js
+/**
+ * Documentation: http://docs.azk.io/Azkfile.js
+ */
+ 
+// Adds the systems that shape your system
+systems({
+  example: {
+    // ...
+    http: {
+      domains: [
+        // ...
+        "#{process.env.AZK_HOST_IP}"
+      ]
+    },
+  },
+
+  // ...
+});
+```
+
 - Run:
 ```bash
 $ azk shell deploy
