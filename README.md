@@ -22,7 +22,10 @@ Image content:
 The following environment variables are available for configuring the deployment using this image:
 
 - **API_TOKEN**: User's API token in DigitalOcean;
-- **LOCAL_PROJECT_PATH**: (*optional, default: /azk/deploy/src*) Project source code path;
+- **BOX_REGION** (*optional, default: nyc3*): Region where the droplet is allocated. Check all available regions and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-regions);
+- **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
+- **BOX_SIZE** (*optional, default: 1gb*): Size of the droplet (involves number of CPUs, amount of memory, storage capacity and data traffic). Check all available droplet sizes and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-sizes);
+- **LOCAL_PROJECT_PATH** (*optional, default: /azk/deploy/src*): Project source code path;
 - **LOCAL_DOT_SSH_PATH** (*optional, default: /azk/deploy/.ssh*): Path containing SSH keys. If no path is given, a new SSH public/private key pair will be generated;
 - **REMOTE_USER** (*optional, default: git*): Username created (or used if it exists) in the remote server to deploy files and run the app;
 - **AZK_DOMAIN** (*optional, default: azk.dev.io*): azk domain in the current namespace;
