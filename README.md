@@ -21,7 +21,7 @@ Image content:
 ### Configuration
 The following environment variables are available for configuring the deployment using this image:
 
-- **API_TOKEN**: User's API token in DigitalOcean;
+- **DEPLOY_API_TOKEN**: User's API token in DigitalOcean;
 - **BOX_REGION** (*optional, default: nyc3*): Region where the droplet is allocated. Check all available regions and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-regions);
 - **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
 - **BOX_SIZE** (*optional, default: 1gb*): Size of the droplet (involves number of CPUs, amount of memory, storage capacity and data traffic). Check all available droplet sizes and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-sizes);
@@ -60,9 +60,6 @@ systems({
       "/azk/deploy/.ssh": path("`LOCAL_DOT_SSH_PATH`")
     },
     scalable: {"default": 0, "limit": 0},
-    envs: {
-      API_TOKEN: "`DO_API_TOKEN`",
-    },
   },
 });
 ```
@@ -89,6 +86,11 @@ systems({
 });
 ```
 
+- Add your DigitalOcean API token into `.env` file:
+```bash
+$ echo DEPLOY_API_TOKEN=COLOQUE_SEU_TOKEN_AQUI >> .env
+```
+
 - Run:
 ```bash
 $ azk shell deploy
@@ -108,7 +110,7 @@ To run the image:
 $ docker run --rm --name deploy-digitalocean-run \
   -v `LOCAL_PROJECT_PATH`:/azk/deploy/src \
   -v `LOCAL_DOT_SSH_PATH`:/azk/deploy/.ssh \
-  -e "API_TOKEN=`DO_API_TOKEN`" \
+  -e "DEPLOY_API_TOKEN=`DIGITALOCEAN_API_TOKEN`" \
   azukiapp/deploy-digitalocean
 ```
 

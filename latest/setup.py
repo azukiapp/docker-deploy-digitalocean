@@ -53,9 +53,9 @@ def wait_droplet_get_active(droplet, step=2000, timeout=300000):
   if (time.time() - start_time)*1000 >= timeout:
     raise RuntimeError(log.err('Failed to put droplet ' + str(droplet.name) + ' up. Timeout (' + str(timeout) + 'ms).', 'timeout'))
 
-token = env('API_TOKEN')
+token = env('DEPLOY_API_TOKEN')
 if token is None:
-  raise EnvironmentError(log.err('Environment variable API_TOKEN is empty.'))
+  raise EnvironmentError(log.err('Environment variable DEPLOY_API_TOKEN is empty.'))
 
 key_name = env('KEY_NAME', 'azk-deploy')
 public_key = env('PUBLIC_KEY')
