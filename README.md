@@ -57,7 +57,7 @@ systems({
     image: {"docker": "azukiapp/deploy-digitalocean"},
     mounts: {
       "/azk/deploy/src":  path("."),
-      "/azk/deploy/.ssh": path("`LOCAL_DOT_SSH_PATH`")
+      "/azk/deploy/.ssh": path("#{process.env.HOME}/.ssh")
     },
     scalable: {"default": 0, "limit": 0},
   },
@@ -108,8 +108,8 @@ To run the image:
 
 ```sh
 $ docker run --rm --name deploy-digitalocean-run \
-  -v `LOCAL_PROJECT_PATH`:/azk/deploy/src \
-  -v `LOCAL_DOT_SSH_PATH`:/azk/deploy/.ssh \
+  -v `LOCAL_PROJECT_PATH`:$(pwd) \
+  -v `LOCAL_DOT_SSH_PATH`:$(echo $HOME)/.ssh \
   -e "DEPLOY_API_TOKEN=`DIGITALOCEAN_API_TOKEN`" \
   azukiapp/deploy-digitalocean
 ```
