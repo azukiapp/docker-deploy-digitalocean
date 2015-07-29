@@ -7,7 +7,7 @@ abs_dir() {
 ROOT_PATH=`abs_dir ${BASH_SOURCE:-$0}`
 cd ${ROOT_PATH}
 
-. ${ROOT_PATH}/deploy-setup
+. ${ROOT_PATH}/deploy-setup.sh
 
 set -e
 
@@ -30,4 +30,4 @@ done
 
 [ ${RETRY} -ge ${MAX_RETRY} ] && echo "Failed to connect to server. Try again later." && exit 1
 
-. ${ROOT_PATH}/deploy-run
+. ${ROOT_PATH}/deploy-run.sh
