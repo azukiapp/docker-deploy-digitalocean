@@ -22,6 +22,7 @@ Image content:
 The following environment variables are available for configuring the deployment using this image:
 
 - **DEPLOY_API_TOKEN**: User's API token in [DigitalOcean][do-api-token];
+- **DROPLET_NAME** (*optional, default: `$AZK_MID | azk-deploy`*): Droplet name;
 - **BOX_REGION** (*optional, default: nyc3*): Region where the droplet is allocated. Check all available regions and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-regions);
 - **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
 - **BOX_SIZE** (*optional, default: 1gb*): Size of the droplet (involves number of CPUs, amount of memory, storage capacity and data traffic). Check all available droplet sizes and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-sizes);
@@ -48,7 +49,7 @@ Example of using this image with [azk](http://azk.io):
 /**
  * Documentation: http://docs.azk.io/Azkfile.js
  */
- 
+
 // Adds the systems that shape your system
 systems({
   // ...
@@ -69,7 +70,7 @@ systems({
 /**
  * Documentation: http://docs.azk.io/Azkfile.js
  */
- 
+
 // Adds the systems that shape your system
 systems({
   example: {

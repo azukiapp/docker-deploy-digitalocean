@@ -69,7 +69,9 @@ if ssh_key is None:
   ssh_key.public_key = public_key
   ssh_key.create()
 
-droplet_name   = 'azk-' + env('AZK_MID', 'deploy')
+droplet_name   = env('AZK_MID', 'azk-deploy')
+droplet_name   = env('DROPLET_NAME', droplet_name)
+
 droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
