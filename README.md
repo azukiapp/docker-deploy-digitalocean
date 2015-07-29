@@ -96,6 +96,11 @@ $ echo DEPLOY_API_TOKEN=COLOQUE_SEU_TOKEN_AQUI >> .env
 $ azk shell deploy
 ```
 
+- Customizing `AZK_RESTART_COMMAND` for a specific deploy:
+```bash
+$ azk shell deploy -e AZK_RESTART_COMMAND="azk restart -R -vvvv --rebuild"
+```
+
 #### Usage with `docker`
 
 To create the image `azukiapp/deploy-digitalocean`, execute the following command on the deploy-digitalocean image folder:
