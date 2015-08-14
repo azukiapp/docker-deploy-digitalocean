@@ -114,11 +114,14 @@ To run the image:
 
 ```sh
 $ docker run --rm --name deploy-digitalocean-run \
-  -v `LOCAL_PROJECT_PATH`:$(pwd) \
-  -v `LOCAL_DOT_SSH_PATH`:$(echo $HOME)/.ssh \
+  -v $(pwd):/azk/deploy/src \
+  -v $HOME/.ssh:/azk/deploy/.ssh \
   -e "DEPLOY_API_TOKEN=`DIGITALOCEAN_API_TOKEN`" \
   azukiapp/deploy-digitalocean
 ```
+
+Before running, replace `DIGITALOCEAN_API_TOKEN` with the actual value.
+
 
 ## License
 
