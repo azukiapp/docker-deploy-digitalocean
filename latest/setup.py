@@ -37,7 +37,7 @@ def last_action(droplet):
   else:
     return actions[-1]
 
-def wait_droplet_get_active(droplet, step=2000, timeout=300000):
+def wait_droplet_get_active(droplet, step=2000, timeout=900000):
   if droplet is None:
     raise RuntimeError(log.err('Cannot wait for an empty droplet.'))
   start_time = time.time()
