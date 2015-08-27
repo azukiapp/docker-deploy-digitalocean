@@ -57,10 +57,10 @@ token = env('DEPLOY_API_TOKEN')
 if token is None:
   raise EnvironmentError(log.err('Environment variable DEPLOY_API_TOKEN is empty.'))
 
-key_name = env('KEY_NAME', 'azk-deploy')
 public_key = env('PUBLIC_KEY')
 if public_key is None:
   raise EnvironmentError(log.err('Environment variable PUBLIC_KEY is empty.'))
+key_name = env('KEY_NAME', public_key.split()[-1])
 
 ssh_key = digitalocean.SSHKey(token=token).load_by_pub_key(public_key)
 if ssh_key is None:
@@ -95,7 +95,7 @@ if not droplet is None and (
   droplet.image['slug']  != droplet_image  or
   droplet.size['slug']   != droplet_size
   ):
-  log.step(log.warn('Droplet config has changed! It will be destroyed and a new one will be created. Are you sure? (y/N) '))
+  log.warn('Droplet config has changed! It will be destroyed and a new one will be created. Are you sure? (y/N) ', inline=true)
   ans = sys.stdin.read(1)
   if str(ans).lower() == 'y':
     log.step('Destroying existing droplet')
