@@ -70,11 +70,12 @@ if ssh_key is None:
   ssh_key.create()
 
 droplet_name   = env('AZK_MID', 'azk-deploy')
-droplet_name   = env('DROPLET_NAME', droplet_name)
+droplet_name   = env('BOX_NAME', droplet_name)
 
 droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
+droplet_backup = True if env('BOX_BACKUP', 'false') == 'true' else False
 
 log.step('Logging into DigitalOcean')
 manager  = digitalocean.Manager(token=token)
@@ -113,7 +114,8 @@ if droplet is None:
     region=droplet_region,
     image=droplet_image,
     size_slug=droplet_size,
-    ssh_keys=[ssh_key.id])
+    ssh_keys=[ssh_key.id],
+    backups=droplet_backup)
   droplet.create()
   wait(last_action(droplet), 'Creating droplet.')
   log.step_done()
