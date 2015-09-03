@@ -24,7 +24,7 @@ The following environment variables are available for configuring the deployment
 - **DEPLOY_API_TOKEN**: User's API token in [DigitalOcean][do-api-token];
 - **BOX_NAME** (*optional, default: `$AZK_MID || azk-deploy`*): Droplet name;
 - **BOX_REGION** (*optional, default: nyc3*): Region where the droplet is allocated. Check all available regions and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-regions);
-- **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
+- **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64 and **we strongly recommend you to use it**. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
 - **BOX_SIZE** (*optional, default: 1gb*): Size of the droplet (involves number of CPUs, amount of memory, storage capacity and data traffic). Check all available droplet sizes and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-sizes);
 - **BOX_BACKUP** (*optional, default: false*): If `true`, enables DigitalOcean [built-in backups](https://www.digitalocean.com/help/technical/backup/);
 - **LOCAL_PROJECT_PATH** (*optional, default: /azk/deploy/src*): Project source code path;
