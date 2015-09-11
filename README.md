@@ -27,6 +27,7 @@ The following environment variables are available for configuring the deployment
 - **BOX_IMAGE** (*optional, default: ubuntu-14-04-x64*): Image used in the droplet. Default is Ubuntu 14.04 x86-64 and **we strongly recommend you to use it**. Check all available images and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-distribution-images);
 - **BOX_SIZE** (*optional, default: 1gb*): Size of the droplet (involves number of CPUs, amount of memory, storage capacity and data traffic). Check all available droplet sizes and their slugs [here](https://developers.digitalocean.com/documentation/v2/#list-all-sizes);
 - **BOX_BACKUP** (*optional, default: false*): If `true`, enables DigitalOcean [built-in backups](https://www.digitalocean.com/help/technical/backup/);
+- **BOX_PRIVATE_NETWORKING** (*optional, default: false*): If `true`, enables DigitalOcean [built-in private networking](https://www.digitalocean.com/company/blog/introducing-private-networking/);
 - **LOCAL_PROJECT_PATH** (*optional, default: /azk/deploy/src*): Project source code path;
 - **LOCAL_DOT_SSH_PATH** (*optional, default: /azk/deploy/.ssh*): Path containing SSH keys. If no path is given, a new SSH public/private key pair will be generated;
 - **REMOTE_USER** (*optional, default: git*): Username created (or used if it exists) in the remote server to deploy files and run the app;

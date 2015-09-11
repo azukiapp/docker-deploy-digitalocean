@@ -76,6 +76,7 @@ droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
 droplet_backup = True if env('BOX_BACKUP', 'false') == 'true' else False
+droplet_private_networking = True if env('BOX_PRIVATE_NETWORKING', 'false') == 'true' else False
 
 log.step('Logging into DigitalOcean')
 manager  = digitalocean.Manager(token=token)
@@ -92,11 +93,13 @@ for a_droplet in droplets:
     break
 
 if not droplet is None and (
-  droplet.region['slug'] != droplet_region or
-  droplet.image['slug']  != droplet_image  or
-  droplet.size['slug']   != droplet_size
+  droplet.region['slug']     != droplet_region or
+  droplet.image['slug']      != droplet_image  or
+  droplet.size['slug']       != droplet_size   or
+  droplet.backups            != droplet_backup or
+  droplet.private_networking != droplet_private_networking
   ):
-  log.warn('Droplet config has changed! It will be destroyed and a new one will be created. Are you sure? (y/N) ', inline=true)
+  log.warn('Droplet config has changed! It will be destroyed and a new one will be created. Are you sure? (y/N) ', inline=True)
   ans = sys.stdin.read(1)
   if str(ans).lower() == 'y':
     log.step('Destroying existing droplet')
@@ -115,7 +118,8 @@ if droplet is None:
     image=droplet_image,
     size_slug=droplet_size,
     ssh_keys=[ssh_key.id],
-    backups=droplet_backup)
+    backups=droplet_backup,
+    private_networking=droplet_private_networking)
   droplet.create()
   wait(last_action(droplet), 'Creating droplet.')
   log.step_done()
