@@ -20,9 +20,9 @@ def err(msg, tag='ERROR', inline=False):
 
 def warn(msg, tag='WARNING', inline=False):
   if inline:
-    print yellow('[' + str(tag).upper() + ']') + ' ' + msg
-  else:
     print yellow('[' + str(tag).upper() + ']') + ' ' + msg,
+  else:
+    print yellow('[' + str(tag).upper() + ']') + ' ' + msg
 
 def info(msg, tag='INFO', inline=False):
   if inline:
