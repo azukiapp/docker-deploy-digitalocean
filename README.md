@@ -32,6 +32,7 @@ The following environment variables are available for configuring the deployment
 - **LOCAL_DOT_SSH_PATH** (*optional, default: /azk/deploy/.ssh*): Path containing SSH keys. If no path is given, a new SSH public/private key pair will be generated;
 - **REMOTE_USER** (*optional, default: git*): Username created (or used if it exists) in the remote server to deploy files and run the app;
 - **AZK_DOMAIN** (*optional, default: azk.dev.io*): azk domain in the current namespace;
+- **HOST_DOMAIN** (*optional*): Domain name which you'll use to access the remote server;
 - **REMOTE_PROJECT_PATH_ID** (*optional*): By default, the project will be placed at */home/`REMOTE_USER`/`REMOTE_PROJECT_PATH_ID`* (i.e., `REMOTE_PROJECT_PATH`) in the remote server. If no value is given, a random id will be generated;
 - **REMOTE_PROJECT_PATH** (*optional*): The path where the project will be stored in the remote server. If no value is given, it will be */home/`REMOTE_USER`/`REMOTE_PROJECT_PATH_ID`*;
 - **RUN_SETUP** (*optional, default: true*): Boolean variable that defines if the remote server setup step should be run;
@@ -67,7 +68,8 @@ systems({
 });
 ```
 
-- Add the `AZK_HOST_IP` var to your main system http domains (so you can access it by http://`DROPLET_PUBLIC_IP`)
+- Add the `HOST_DOMAIN` (if any) and `HOST_IP` var to your main system http domains (so you can access it by http://`SERVER_PUBLIC_IP` or http://`YOUR_CUSTOM_DOMAIN`). Please note the order matter.
+
 ```js
 /**
  * Documentation: http://docs.azk.io/Azkfile.js
@@ -80,7 +82,8 @@ systems({
     http: {
       domains: [
         // ...
-        "#{process.env.AZK_HOST_IP}"
+        "#{process.env.HOST_DOMAIN}",
+        "#{process.env.HOST_IP}"
       ]
     },
   },
