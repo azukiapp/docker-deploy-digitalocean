@@ -75,8 +75,8 @@ droplet_name   = env('BOX_NAME', droplet_name)
 droplet_region = env('BOX_REGION', 'nyc3')
 droplet_image  = env('BOX_IMAGE', 'ubuntu-14-04-x64')
 droplet_size   = env('BOX_SIZE', '1gb')
-droplet_backup = True if env('BOX_BACKUP', 'false') == 'true' else False
-droplet_private_networking = True if env('BOX_PRIVATE_NETWORKING', 'false') == 'true' else False
+droplet_backup = True if env('BOX_BACKUP', 'false') == 'true' else None
+droplet_private_networking = True if env('BOX_PRIVATE_NETWORKING', 'false') == 'true' else None
 
 log.step('Logging into DigitalOcean')
 manager  = digitalocean.Manager(token=token)
