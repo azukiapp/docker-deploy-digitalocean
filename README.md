@@ -37,6 +37,7 @@ The following environment variables are available for configuring the deployment
 - **REMOTE_PROJECT_PATH** (*optional*): The path where the project will be stored in the remote server. If no value is given, it will be */home/`REMOTE_USER`/`REMOTE_PROJECT_PATH_ID`*;
 - **RUN_SETUP** (*optional, default: true*): Boolean variable that defines if the remote server setup step should be run;
 - **RUN_DEPLOY** (*optional, default: true*): Boolean variable that defines if the deploy step should be run;
+- **DISABLE_ANALYTICS_TRACKER** (*optional, default: false*): Boolean variable that defines either azk should track deploy anonymous data or not;
 
 #### Usage
 
