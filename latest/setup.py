@@ -121,7 +121,7 @@ if droplet is None:
     backups=droplet_backup,
     private_networking=droplet_private_networking)
   droplet.create()
-  wait(last_action(droplet), 'Creating droplet.')
+  wait(last_action(droplet), 'Creating droplet.', timeout=900000)
   log.step_done()
 else:
   log.step('Existing droplet ' + droplet.name + ' will be used.')
