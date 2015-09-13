@@ -3,6 +3,11 @@
 
 Base docker image to deploy an app into DigitalOcean using [`azk`](http://azk.io)
 
+Initial Considerations
+---
+We strongly recommend you to use Ubuntu 14.04 x86-64 in the target server.
+Using this image with any other OS in the target server is untested yet and it's potentially broken.
+
 Versions (tags)
 ---
 
