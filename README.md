@@ -67,7 +67,7 @@ systems({
     image: {"docker": "azukiapp/deploy-digitalocean"},
     mounts: {
       "/azk/deploy/src":  path("."),
-      "/azk/deploy/.ssh": path("#{process.env.HOME}/.ssh")
+      "/azk/deploy/.ssh": path("#{env.HOME}/.ssh")
     },
     scalable: {"default": 0, "limit": 0},
   },
@@ -88,8 +88,8 @@ systems({
     http: {
       domains: [
         // ...
-        "#{process.env.HOST_DOMAIN}",
-        "#{process.env.HOST_IP}"
+        "#{env.HOST_DOMAIN}",
+        "#{env.HOST_IP}"
       ]
     },
   },
