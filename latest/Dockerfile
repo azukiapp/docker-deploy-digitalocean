@@ -12,4 +12,5 @@ RUN apt-get -y update \
 
 COPY deploy-digitalocean.sh setup.py log.py ./
 
-ENTRYPOINT ["/azk/deploy/deploy-digitalocean.sh"]
+ENTRYPOINT ["/azk/deploy/deploy.sh", "--provider", "digitalocean"]
+CMD [""]
