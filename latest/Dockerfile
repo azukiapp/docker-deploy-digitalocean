@@ -1,4 +1,4 @@
-FROM azukiapp/deploy
+FROM azukiapp/deploy:0.0.1
 MAINTAINER Azuki <support@azukiapp.com>
 
 WORKDIR /azk/deploy
