@@ -12,13 +12,14 @@ Versions (tags)
 ---
 
 <versions>
-- [`latest`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/latest/Dockerfile)
+- [`latest, 0.0.2`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/latest/Dockerfile)
+- [`0.0.1`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/v0.0.1/latest/Dockerfile)
 </versions>
 
 Image content:
 ---
 
-- Ubuntu 14.04
+- Ubuntu 14.04 (v0.0.1) or Alpine Linux (v0.0.2 or later)
 - [Ansible](http://www.ansible.com)
 - [SSHPass](http://sourceforge.net/projects/sshpass/)
 - [python-digitalocean](https://github.com/koalalorenzo/python-digitalocean)
