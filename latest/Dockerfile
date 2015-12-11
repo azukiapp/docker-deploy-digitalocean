@@ -1,14 +1,21 @@
-FROM azukiapp/deploy:0.0.1
+FROM azukiapp/deploy:0.0.2
 MAINTAINER Azuki <support@azukiapp.com>
 
 WORKDIR /azk/deploy
 
-RUN apt-get -y update \
-  && apt-get install -y python-dev libffi-dev libssl-dev \
-  && pip install -U ndg-httpsclient \
-  && pip install -U python-digitalocean \
-  && apt-get clean -qq \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN packages=' \
+    g++ \
+    py-pip \
+    python-dev \
+    libffi-dev \
+    openssl-dev \
+  ' \
+  set -x \
+  && apk --update add $packages \
+  && pip install ndg-httpsclient python-digitalocean \
+  && apk del g++ py-pip python-dev libffi-dev openssl-dev \
+  && apk add python \
+  && rm -rf /var/cache/apk/*
 
 COPY deploy-digitalocean.sh setup.py log.py ./
 

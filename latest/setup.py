@@ -79,7 +79,7 @@ droplet_backup = True if env('BOX_BACKUP', 'false') == 'true' else None
 droplet_private_networking = True if env('BOX_PRIVATE_NETWORKING', 'false') == 'true' else None
 
 log.step('Logging into DigitalOcean')
-manager  = digitalocean.Manager(token=token)
+manager = digitalocean.Manager(token=token)
 log.step_done()
 
 log.step('Getting existing droplets')
