@@ -60,7 +60,7 @@ if token is None:
 public_key = env('PUBLIC_KEY')
 if public_key is None:
   raise EnvironmentError(log.err('Environment variable PUBLIC_KEY is empty.'))
-key_name = env('KEY_NAME', public_key.split()[-1])
+key_name = env('SSH_KEY_NAME', public_key.split()[-1])
 
 ssh_key = digitalocean.SSHKey(token=token).load_by_pub_key(public_key)
 if ssh_key is None:
