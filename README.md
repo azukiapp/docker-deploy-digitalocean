@@ -14,6 +14,7 @@ Versions (tags)
 
 <versions>
 - [`latest`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/master/latest/Dockerfile)
+- [`0.0.5`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/v0.0.5/latest/Dockerfile)
 - [`0.0.4`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/v0.0.4/latest/Dockerfile)
 - [`0.0.3`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/v0.0.3/latest/Dockerfile)
 - [`0.0.2`](https://github.com/azukiapp/docker-deploy-digitalocean/blob/v0.0.2/latest/Dockerfile)
